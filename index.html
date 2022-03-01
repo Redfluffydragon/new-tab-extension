@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New Tab</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="config.js" type="text/javascript" defer></script>
+    <script src="skycons.js" type="text/javascript" defer></script>
+    <script src="index.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <template id="linkTemplate">
+      <div class="linkContainer">
+        <a>
+          <img class="favicon">
+          <span class="linkTitle">Drive</span>
+        </a>
+        <div class="edit">Edit</div>
+      </div>
+    </template>
+
+    <img id="background">
+    <div class="copyright">Photo: &copy;<span id="bgCopyright"></span></div>
+
+    <div id="links">
+    </div>
+    <p id="time"></p>
+
+    <div id="weather" class="weatherdiv grid">
+      <span class="location sixWide"></span>
+      <span class="sixWide right"><a href="https://darksky.net/poweredby/" class="smallLink">Powered by Dark Sky</a></span>
+      <div class="divider allWide"></div>
+      <canvas id="skycons" class="twoWide twoTall" width="80" height="80"></canvas>
+      <div class="twoWide twoTall">
+        <span class="curTemp"></span>
+        <span class="tempPrediction"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day">Today</span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day"></span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day"></span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day"></span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day"></span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day"></span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day"></span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <div class="sixTall center prediction">
+        <canvas class="smallSkycon" width="50" height="50"></canvas>
+        <span class="day"></span>
+        <div class="showExtremeWrapper">
+          <span class="high"></span>
+          <div class="showExtrema"></div>
+          <span class="low"></span>
+        </div>
+        <span class="precipProbability"></span>
+      </div>
+      <span class="summary fourWide"></span>
+      <span class="wind center fourWide"></span>
+      <canvas id="mooncons" width="40" height="40"></canvas>
+      <div class="threeWide">
+        <span class="sunrise"></span>
+        <span class="sunset"></span>
+      </div>
+      <span class="humidity center fourWide"></span>
+      <span class="visibility center fourWide"></span>
+      <span class="center sevenWide"><a href="" class="alert"></a></span>
+      <span class="resetWeather smallText pointer">Reset</span>
+    </div>
+
+    <div id="system">
+      <button id="settings" class="systemBtn">Settings</button>
+      <button id="bookmarks" class="systemBtn">Bookmarks</button>
+      <button id="history" class="systemBtn">History</button>
+      <button id="downloads" class="systemBtn">Downloads</button>
+      <button id="extensions" class="systemBtn">Extensions</button>
+      <button id="predictors" class="systemBtn">Predictors</button>
+      <button id="flags" class="systemBtn">Flags</button>
+    </div>
+
+    <div id="notes" class="none">
+      <p>Notes</p>
+      <span class="hr"></span>
+      <textarea id="notesBody"></textarea>
+    </div>
+    
+    <div id="shadow" class="none"></div>
+
+    <div id="centermoda">
+      <div id="plusmoda" class="moda">
+        <h3>Add link</h3>
+        <label>Title: <input id="titleInput"></label>
+        <label>URL: <input id="urlInput"></label>
+        <br>
+        <button class="cnclbtn">Cancel</button>
+        <button id="addbtn"class="ysbtn">Add</button>
+      </div>
+
+      <div id="editmoda" class="moda">
+        <h3 class="modalHeader">Edit Link</h3>
+        <label>Name: <input id="changename"></label>
+        <label>URL: <input id="changeurl"></label>
+        <br>
+        <button id="dltbtn">Delete</button>
+        <button id="resetbtn">Reset</button>
+        <button class="cnclbtn">Cancel</button>
+        <button id="svbtn" class="ysbtn">Save</button>
+      </div>
+
+      <div id="optmoda" class="moda">
+        <h2 class="modalHeader">Options</h2>
+        <dl id="optlist">
+            <dt>
+              <label>
+                <input id="optTimeGrid" class="checkbox" type="checkbox" checked>
+                <span class="checkmark"></span>
+                Snap time to rows
+              </label>
+            </dt>
+            <dt>
+              <label>
+                <input id="optLinksGrid" class="checkbox" type="checkbox" checked>
+                <span class="checkmark"></span>
+                Snap links to rows
+              </label>
+            </dt>
+          <dt>
+            <label>
+              <input id="optoverlap" class="checkbox" type="checkbox">
+              <span class="checkmark"></span>
+              Allow overlap
+            </label>
+          </dt>
+          <span class="hr hrInList"></span>
+          <dt>
+            <label>
+              <input id="showSeconds" class="checkbox" type="checkbox">
+              <span class="checkmark"></span>
+              Show seconds
+            </label>
+          </dt>
+          <dt>
+            <label>
+              <input id="showWeather" class="checkbox" type="checkbox" checked>
+              <span class="checkmark"></span>
+              Show weather
+            </label>
+          </dt>
+          <dt>
+            <label>
+              <input id="showNotes" class="checkbox" type="checkbox">
+              <span class="checkmark"></span>
+              Show notes
+            </label>
+          </dt>
+          <dt>
+            <label title="Bookmarks, history, etc.">
+              <input id="showSysLinks" class="checkbox" type="checkbox" checked>
+              <span class="checkmark"></span>
+              Show browser links
+            </label>
+          </dt>
+          <span class="hr hrInList"></span>
+          <dt>
+            <label>
+              <input id="darkMode" class="checkbox" type="checkbox">
+              <span class="checkmark"></span>
+              Dark mode
+            </label>
+          </dt>
+          <dt>
+            <label title="Goes to dark mode when possible">
+              <input id="weatherMatchMode" class="checkbox" type="checkbox">
+              <span class="checkmark"></span>
+              Match mode to weather
+            </label>
+          </dt>
+          <dt>
+            <label title="Goes to dark mode when possible">
+              <input id="timeMatchMode" class="checkbox" type="checkbox">
+              <span class="checkmark"></span>
+              Match mode to time
+            </label>
+          </dt>
+        </dl>
+        <br>
+        <button class="cnclbtn">Close</button>
+      </div>
+    </div>
+
+    <div id="optbuttons">
+      <button id="downloadsFolder" class="optbutton">Downloads folder</button>
+      <button id="newback" class="optbutton">Next background</button>
+      <button id="plusbtn" class="optbutton">Add link</button>
+      <button id="options" class="optbutton">Options</button>
+    </div>
+  </body>
+</html>
