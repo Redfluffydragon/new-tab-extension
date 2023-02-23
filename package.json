@@ -1,0 +1,28 @@
+{
+  "name": "new-tab",
+  "description": "A new tab with all the links you want.",
+  "version": "1.0.0",
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "@doist/todoist-api-typescript": "^2.1.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Redfluffydragon/new-tab.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Redfluffydragon/new-tab/issues"
+  },
+  "homepage": "https://github.com/Redfluffydragon/new-tab#readme"
+}

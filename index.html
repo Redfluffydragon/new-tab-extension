@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Tab</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="dist/todoist.js" defer></script>
+  <script src="main.js" type="module" defer></script>
+</head>
+
+<body>
+  <template id="linkTemplate">
+    <div class="linkContainer">
+      <a>
+        <img class="favicon">
+        <span class="linkTitle">Drive</span>
+      </a>
+      <div class="edit nodrag">Edit</div>
+    </div>
+  </template>
+
+  <template id="checklistTemplate">
+    <li>
+      <label>
+        <input type="checkbox">
+        <span class="content"></span>
+      </label>
+      <span class="dueDate">
+        <span class="dueString"></span>
+        <svg class="recurringIcon" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"
+          class="recurring_icon">
+          <path fill="currentColor"
+            d="M2.784 4.589l.07.057 1.5 1.5a.5.5 0 01-.638.765l-.07-.057L3 6.207V7a2 2 0 001.85 1.995L5 9h2.5a.5.5 0 01.09.992L7.5 10H5a3 3 0 01-2.995-2.824L2 7v-.793l-.646.647a.5.5 0 01-.638.057l-.07-.057a.5.5 0 01-.057-.638l.057-.07 1.5-1.5a.5.5 0 01.638-.057zM7 2a3 3 0 013 3v.792l.646-.646a.5.5 0 01.765.638l-.057.07-1.5 1.5a.5.5 0 01-.638.057l-.07-.057-1.5-1.5a.5.5 0 01.638-.765l.07.057.646.646V5a2 2 0 00-1.85-1.995L7 3H4.5a.5.5 0 010-1z">
+          </path>
+        </svg>
+      </span>
+      <ul></ul>
+    </li>
+  </template>
+
+  <canvas id="fluidBg" class="none"></canvas>
+  <img id="background">
+  <div class="credit">Photo: <span id="bgCredit"></span></div>
+
+  <div id="links">
+  </div>
+  <p id="time" class="draggable"></p>
+
+  <div id="weather" class="draggable">
+    <span class="location sixWide"></span>
+    <span class="sixWide right"><a href="https://darksky.net/poweredby/" class="smallLink">Powered by Dark
+        Sky</a></span>
+    <div class="divider"></div>
+    <canvas id="skycons" class="twoWide twoTall" width="80" height="80"></canvas>
+    <div class="twoWide twoTall">
+      <div class="curTemp center"></div>
+      <div class="tempPrediction center"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <div class="sixTall center prediction">
+      <canvas class="smallSkycon" width="50" height="50"></canvas>
+      <div class="day"></div>
+      <div class="high"></div>
+      <div class="showExtremeWrapper">
+        <div class="showExtrema"></div>
+      </div>
+      <div class="low"></div>
+      <div class="precipProbability"></div>
+    </div>
+    <span class="summary fourWide"></span>
+    <span class="wind center fourWide"></span>
+    <canvas id="mooncons" width="40" height="40"></canvas>
+    <div class="threeWide">
+      <div class="sunrise"></div>
+      <div class="sunset"></div>
+    </div>
+    <span class="humidity center fourWide"></span>
+    <span class="visibility center fourWide"></span>
+    <span class="center sevenWide alerts"></span>
+    <button class="resetWeather smallText">Reset</button>
+  </div>
+
+  <div id="system" class="draggable">
+    <button id="settings" class="systemBtn">Settings</button>
+    <button id="bookmarks" class="systemBtn">Bookmarks</button>
+    <button id="history" class="systemBtn">History</button>
+    <button id="history/syncedTabs" class="systemBtn">Synced Tabs</button>
+    <button id="downloads" class="systemBtn">Downloads</button>
+    <button id="extensions" class="systemBtn">Extensions</button>
+    <!-- <button id="predictors" class="systemBtn">Predictors</button> -->
+    <!-- <button id="flags" class="systemBtn">Flags</button> -->
+  </div>
+
+  <div id="notes" class="none draggable">
+    <textarea id="notesBody" class="nodrag"></textarea>
+  </div>
+
+  <div id="todoist" class="none draggable">
+    <div class="nodrag">
+      <div class="header">
+        <a href="https://todoist.com/app/project/2301913343">Todoist</a>
+        <select id="todoProjects" class="nodrag">
+        </select>
+      </div>
+      <div class="nodrag">
+        <form id="todoistForm">
+          <ul id="todoistList"></ul>
+        </form>
+        <form id="newTask">
+          <fieldset>
+            <label>New task: <input id="newTaskName" name="name" type="text" autocomplete="off"></label>
+            <button id="newTaskBtn">Add</button>
+          </fieldset>
+        </form>
+      </div>
+      <div id="todoistMenu" class="menu none">
+        <ul role="menu">
+          <li role="menuitem">
+            <button id="editTask">
+              <svg width="24" height="24">
+                <g fill="none" fill-rule="evenodd">
+                  <path fill="currentColor" d="M9.5 19h10a.5.5 0 110 1h-10a.5.5 0 110-1z"></path>
+                  <path stroke="currentColor"
+                    d="M4.42 16.03a1.5 1.5 0 00-.43.9l-.22 2.02a.5.5 0 00.55.55l2.02-.21a1.5 1.5 0 00.9-.44L18.7 7.4a1.5 1.5 0 000-2.12l-.7-.7a1.5 1.5 0 00-2.13 0L4.42 16.02z">
+                  </path>
+                </g>
+              </svg>
+              Edit task
+            </button>
+          </li>
+          <li role="menuitem">
+            <button id="deleteTask">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                <g fill="none" fill-rule="evenodd">
+                  <path d="M0 0h24v24H0z"></path>
+                  <rect width="14" height="1" x="5" y="6" fill="currentColor" rx=".5"></rect>
+                  <path fill="currentColor" d="M10 9h1v8h-1V9zm3 0h1v8h-1V9z"></path>
+                  <path stroke="currentColor"
+                    d="M17.5 6.5h-11V18A1.5 1.5 0 0 0 8 19.5h8a1.5 1.5 0 0 0 1.5-1.5V6.5zm-9 0h7V5A1.5 1.5 0 0 0 14 3.5h-4A1.5 1.5 0 0 0 8.5 5v1.5z">
+                  </path>
+                </g>
+              </svg>
+              Delete task
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="shadow">
+    <div id="plusmoda" class="moda">
+      <h3>Add link</h3>
+      <label>Title: <input id="titleInput" type="text"></label>
+      <label>URL: <input id="urlInput" type="text"></label>
+      <br>
+      <button class="cnclbtn">Cancel</button>
+      <button id="addbtn" class="ysbtn">Add</button>
+    </div>
+
+    <div id="editmoda" class="moda">
+      <h2>Edit Link</h2>
+      <label>Name: <input id="changename" type="text"></label>
+      <label>URL: <input id="changeurl" type="text"></label>
+      <br>
+      <button id="dltbtn">Delete</button>
+      <button id="resetbtn" title="Put it back in the new link area at the top">Reset</button>
+      <button class="cnclbtn">Cancel</button>
+      <button id="svbtn" class="ysbtn">Save</button>
+    </div>
+
+    <div id="optmoda" class="moda">
+      <h2>Options</h2>
+      <form id="optionsForm">
+        <dl id="optlist">
+          <dt>
+            <label>
+              <input id="optTimeGrid" type="checkbox" checked>
+              Snap time to rows
+            </label>
+          </dt>
+          <dt>
+            <label>
+              <input id="optLinksGrid" type="checkbox" checked>
+              Snap links to rows
+            </label>
+          </dt>
+          <dt>
+            <label>
+              <input id="optoverlap" type="checkbox">
+              Allow overlap
+            </label>
+          </dt>
+          <hr>
+          <dt>
+            <label>
+              <input id="showSeconds" type="checkbox">
+              Show seconds
+            </label>
+          </dt>
+          <dt>
+            <label>
+              <input id="showWeather" type="checkbox" checked>
+              Show weather
+            </label>
+          </dt>
+          <dt>
+            <label>
+              <input id="showNotes" type="checkbox">
+              Show notes
+            </label>
+          </dt>
+          <dt>
+            <label>
+              <input id="showTodoist" type="checkbox" checked>
+              Show Todoist panel
+            </label>
+          </dt>
+          <dt>
+            <label title="Bookmarks, history, etc.">
+              <input id="showSysLinks" type="checkbox" checked>
+              Show browser links
+            </label>
+          </dt>
+          <hr>
+          <dt>
+            <label>
+              <input id="darkMode" type="checkbox">
+              Dark mode
+            </label>
+          </dt>
+          <dt>
+            <label title="Turn on dark mode when the weather is bad">
+              <input id="weatherMatchMode" type="checkbox">
+              Match mode to weather
+            </label>
+          </dt>
+          <dt>
+            <label title="Turn on dark mode when the sun is down">
+              <input id="timeMatchMode" type="checkbox">
+              Match mode to time
+            </label>
+          </dt>
+          <hr>
+          <dt>
+            <section>
+              <h3>Background type</h3>
+              <label>
+                <input value="images" name="bgSelect" type="radio" checked>
+                Images
+              </label>
+              <br>
+              <label>
+                <input value="fluid" name="bgSelect" type="radio">
+                Fluid Simulation
+              </label>
+              <br>
+              <label>
+                <input value="custom" name="bgSelect" type="radio">
+                Custom Image
+              </label>
+              <br>
+              <input type="text" id="customBgUrl" disabled>
+            </section>
+          </dt>
+        </dl>
+      </form>
+      <hr>
+      <button id="exportBtn" title="Copies all current links to clipboard">Export links</button>
+      <button id="importBtn">Import links</button>
+      <br>
+      <button class="cnclbtn">Close</button>
+    </div>
+
+    <div id="importModa" class="moda">
+      <h2>Import links</h2>
+      <textarea id="importInput" spellcheck="false" name="" id="" cols="30" rows="10"></textarea>
+      <br>
+      <i>Paste in the links to import</i>
+      <h3>Options</h3>
+      <ul>
+        <li><label><input type="radio" name="importOpt" value="append" checked> Append links</label></li>
+        <li><label><input type="radio" name="importOpt" value="replace"> Replace all links</label></li>
+      </ul>
+      <button class="cnclbtn">Cancel</button>
+      <button id="actuallyImport" class="ysbtn">Import</button>
+    </div>
+  </div>
+
+  <div id="optbuttons">
+    <button id="downloadsFolder" class="optbutton">Downloads folder</button>
+    <button id="newback" class="optbutton">Next background</button>
+    <button id="plusbtn" class="optbutton">Add link</button>
+    <button id="options" class="optbutton">Options</button>
+  </div>
+</body>
+
+</html>

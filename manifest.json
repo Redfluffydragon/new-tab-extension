@@ -1,0 +1,52 @@
+{
+  "name": "All the links",
+  "description": "Put many, many links on your new tab page",
+  "version": "1.0.1",
+  "manifest_version": 3,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "allthelinks@extension.com"
+    }
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "move-to-first": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1"
+      },
+      "description": "Move the current tab to be the first in the current window"
+    },
+    "move-to-last": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+9"
+      },
+      "description": "Move the current tab to be the last in the current window"
+    },
+    "move-to-left": {
+      "suggested_key": {
+        "default": "Alt+Shift+Left"
+      },
+      "description": "Move the current tab one tab to the left in the current window"
+    },
+    "move-to-right": {
+      "suggested_key": {
+        "default": "Alt+Shift+Right"
+      },
+      "description": "Move the current tab one tab to the right in the current window"
+    }
+  },
+  "permissions": [
+    "geolocation",
+    "downloads",
+    "storage"
+  ],
+  "icons": {
+    "16": "icon.png",
+    "64": "icon.png"
+  }
+}
